@@ -1,0 +1,54 @@
+/* src/pages/Home.css */
+.home-container {
+  text-align: center;
+  background: #111;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-header {
+  margin-bottom: 20px;
+}
+
+.home-content {
+  max-width: 600px;
+  padding: 20px;
+}
+
+.home-banner {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.home-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.home-button {
+  display: inline-block;
+  padding: 12px 24px;
+  font-size: 18px;
+  text-decoration: none;
+  color: white;
+  background: #ff6600;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.home-button:hover {
+  background: #ff4500;
+}
+
+.home-footer {
+  margin-top: 20px;
+  font-size: 14px;
+  opacity: 0.7;
+}
