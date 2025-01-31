@@ -1,0 +1,27 @@
+/* src/styles/policeEvent.module.css */
+.policeContainer {
+  text-align: center;
+  padding: 2rem;
+  background-color: black;
+  color: white;
+  border: 3px solid red;
+  border-radius: 10px;
+}
+
+.escapeButton {
+  background-color: green;
+  color: white;
+  padding: 10px;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+}
+
+.gameOverButton {
+  background-color: red;
+  color: white;
+  padding: 10px;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+}

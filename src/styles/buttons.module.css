@@ -1,0 +1,48 @@
+/* src/styles/buttons.module.css */
+
+.btn {
+  display: inline-block;
+  padding: 12px 20px;
+  margin: 10px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* 🟡 Botão primário (Ex: voltar para Home) */
+.primary {
+  background: #ffcc00;
+  color: #000;
+}
+
+.primary:hover {
+  background: #ffa500;
+  transform: scale(1.05);
+}
+
+/* 🔴 Botão de ação perigosa (Ex: tentar novamente) */
+.danger {
+  background: red;
+  color: white;
+}
+
+.danger:hover {
+  background: darkred;
+  transform: scale(1.05);
+}
+
+/* 📱 Responsividade */
+@media (max-width: 768px) {
+  .btn {
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+}

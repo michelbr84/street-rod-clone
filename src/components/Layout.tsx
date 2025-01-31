@@ -1,13 +1,14 @@
 // src/components/Layout.tsx
 import { Outlet } from 'react-router-dom';
-import Navbar from './Navbar'; // Opcional, se quiser um menu fixo
+import Navbar from './Navbar'; // ✅ Navbar fixa para navegação
+import styles from '../styles/layout.module.css'; // ✅ Importação de estilos (opcional)
 
 export default function Layout() {
   return (
-    <div>
-      <Navbar /> {/* Opcional, pode ser um menu ou cabeçalho */}
-      <main>
-        <Outlet /> {/* Renderiza as páginas dentro do layout */}
+    <div className={styles.container}>
+      <Navbar /> {/* ✅ Navbar Global */}
+      <main className={styles.content}>
+        <Outlet /> {/* ✅ Aqui será renderizada a página ativa */}
       </main>
     </div>
   );

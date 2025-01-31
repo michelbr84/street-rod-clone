@@ -1,0 +1,17 @@
+/* src/styles/hud.module.css */
+.hud {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.infoBox {
+  background: black;
+  color: limegreen;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  min-width: 120px;
+  text-align: center;
+}

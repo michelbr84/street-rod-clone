@@ -1,0 +1,26 @@
+/* src/styles/race.module.css */
+.raceContainer {
+  text-align: center;
+  background-color: #222;
+  color: white;
+  padding: 20px;
+}
+
+.controls {
+  margin-top: 20px;
+}
+
+.controls button {
+  font-size: 18px;
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  background: orange;
+  color: black;
+  cursor: pointer;
+}
+
+.controls button:disabled {
+  background: gray;
+  cursor: not-allowed;
+}

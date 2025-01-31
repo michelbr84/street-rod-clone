@@ -1,0 +1,41 @@
+.shopContainer {
+  text-align: center;
+  padding: 20px;
+  background: #222;
+  color: #fff;
+}
+
+.itemsGrid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.itemCard {
+  background: #333;
+  padding: 15px;
+  border-radius: 10px;
+  width: 200px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.itemCard h3 {
+  margin: 0;
+}
+
+.itemCard button {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.itemCard button:disabled {
+  background: #777;
+  cursor: not-allowed;
+}

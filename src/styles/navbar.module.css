@@ -1,0 +1,44 @@
+/* src/styles/navbar.module.css */
+
+.navbar {
+  background: #222;
+  padding: 10px 20px;
+}
+
+.navList {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  list-style: none;
+}
+
+.navList li {
+  display: inline-block;
+}
+
+.navList a {
+  padding: 10px 15px;
+  border-radius: 5px;
+  background: #333;
+  color: white;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.navList a:hover {
+  background: #555;
+}
+
+/* 📱 Responsividade: Menu se adapta para telas menores */
+@media (max-width: 768px) {
+  .navList {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navList a {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -1,0 +1,45 @@
+/* src/styles/global.css */
+
+/* Reset básico para garantir consistência nos navegadores */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Definir um contêiner principal para centralizar o conteúdo */
+body {
+  background-color: #121212;
+  color: #ffffff;
+  text-align: center;
+  padding: 10px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Melhorando links */
+a {
+  color: #ffcc00;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+a:hover {
+  color: #ffa500;
+}
+
+/* Tornar tudo mais responsivo */
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+
+  .container {
+    padding: 10px;
+  }
+}

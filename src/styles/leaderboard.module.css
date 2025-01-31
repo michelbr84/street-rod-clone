@@ -1,0 +1,44 @@
+/* src/styles/leaderboard.module.css */
+.leaderboardContainer {
+  text-align: center;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  background: #222;
+  color: white;
+  border-radius: 10px;
+}
+
+.leaderboardTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.leaderboardTable th, .leaderboardTable td {
+  padding: 10px;
+  border-bottom: 1px solid #444;
+}
+
+.leaderboardTable th {
+  background: #444;
+}
+
+.topPlayer {
+  font-weight: bold;
+  color: gold;
+}
+
+.updateButton {
+  padding: 10px 20px;
+  background: #ffcc00;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.updateButton:hover {
+  background: #ffaa00;
+}
