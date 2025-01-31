@@ -9,6 +9,9 @@ import configPrettier from 'eslint-config-prettier';
 /** @type {import('eslint').Linter.FlatConfig[]} */
 export default [
   {
+    ignores: ['dist/', 'node_modules/'], // 🚀 Exclui dist/ e node_modules do lint
+  },
+  {
     files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
     languageOptions: {
       parser: tsParser,
@@ -36,10 +39,11 @@ export default [
       ...pluginReact.configs['jsx-runtime'].rules, // Suporte ao JSX automático
       ...configPrettier.rules, // Regras do Prettier
 
-      'no-console': 'warn',
-      'prettier/prettier': 'warn', // Integração com Prettier
-      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }], // Ignora variáveis iniciadas com "_"
-      'react/react-in-jsx-scope': 'off', // Não necessário no React 18+
+      'no-console': 'warn', // ⚠️ Aviso para console.log
+      'prettier/prettier': 'warn', // 📝 Integração com Prettier
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }], // 🚀 Ignora variáveis iniciadas com "_"
+      'react/react-in-jsx-scope': 'off', // ✅ Não necessário no React 18+
+      'no-prototype-builtins': 'off', // ✅ Permite obj.hasOwnProperty()
     },
   },
 ];
