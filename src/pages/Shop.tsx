@@ -1,7 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useCar } from '../context/CarContext'; // 🔗 Integração com o contexto de carros
 import styles from '../styles/shop.module.css';
 
-// Mock de itens da loja (pode ser substituído por um banco de dados futuramente)
+// 🚗 Lista de carros disponíveis para compra
+const carInventory = [
+  { id: 101, name: '1969 Mustang', price: 5000, speed: 180 },
+  { id: 102, name: 'Nissan Skyline GT-R', price: 8000, speed: 220 },
+  { id: 103, name: 'Porsche 911', price: 12000, speed: 240 },
+];
+
+// ⚙️ Lista de upgrades disponíveis
 const shopItems = [
   { id: 1, name: 'Turbocharger', price: 1500 },
   { id: 2, name: 'High-Performance Tires', price: 800 },
@@ -11,41 +19,115 @@ const shopItems = [
 ];
 
 export default function Shop() {
-  const [balance, setBalance] = useState(5000); // Simulando o dinheiro do jogador
-  const [cart, setCart] = useState<{ id: number; name: string; price: number }[]>([]);
+  const { balance, addCar, updateBalance } = useCar(); // ✅ Correção: usando `updateBalance`
+  const [activeTab, setActiveTab] = useState<'cars' | 'upgrades'>('cars');
 
-  const buyItem = (item: { id: number; name: string; price: number }) => {
-    if (balance >= item.price) {
-      setCart([...cart, item]);
-      setBalance(balance - item.price);
-    } else {
-      alert('Not enough money!');
+  const [purchasedUpgrades, setPurchasedUpgrades] = useState<
+    { id: number; name: string; price: number }[]
+  >(() => {
+    const savedUpgrades = localStorage.getItem('purchasedUpgrades');
+    return savedUpgrades ? JSON.parse(savedUpgrades) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('purchasedUpgrades', JSON.stringify(purchasedUpgrades));
+  }, [purchasedUpgrades]);
+
+  // 🚗 Comprar um carro
+  const handleBuyCar = (car: { id: number; name: string; price: number; speed: number }) => {
+    if (balance < car.price) {
+      alert('❌ Not enough money to buy this car!');
+      return;
     }
+
+    addCar(car); // ✅ O desconto do saldo ocorre internamente no `addCar`
+    alert(`✅ You bought the ${car.name}!`);
+  };
+
+  // 🛠️ Comprar um upgrade
+  const handleBuyUpgrade = (item: { id: number; name: string; price: number }) => {
+    if (balance < item.price) {
+      alert('❌ Not enough money to buy this upgrade!');
+      return;
+    }
+    if (purchasedUpgrades.some((upgrade) => upgrade.id === item.id)) {
+      alert('⚠️ You already own this upgrade!');
+      return;
+    }
+
+    setPurchasedUpgrades([...purchasedUpgrades, item]);
+    updateBalance(-item.price); // ✅ Deduz do saldo apenas para upgrades
+    alert(`✅ You purchased the ${item.name}!`);
   };
 
   return (
     <div className={styles.shopContainer}>
-      <h1>🏁 Performance Shop</h1>
-      <p>
-        Your balance: <strong>${balance}</strong>
+      <h1>🏪 Welcome to the Shop</h1>
+      <p className={styles.balance}>
+        💰 Your Balance: <strong>${balance}</strong>
       </p>
 
-      <div className={styles.itemsGrid}>
-        {shopItems.map((item) => (
-          <div key={item.id} className={styles.itemCard}>
-            <h3>{item.name}</h3>
-            <p>Price: ${item.price}</p>
-            <button onClick={() => buyItem(item)} disabled={balance < item.price}>
-              Buy
-            </button>
-          </div>
-        ))}
+      {/* 🗂️ Tabs para alternar entre Carros e Upgrades */}
+      <div className={styles.tabs}>
+        <button
+          onClick={() => setActiveTab('cars')}
+          className={activeTab === 'cars' ? styles.activeTab : ''}
+        >
+          🚗 Cars
+        </button>
+        <button
+          onClick={() => setActiveTab('upgrades')}
+          className={activeTab === 'upgrades' ? styles.activeTab : ''}
+        >
+          ⚙️ Upgrades
+        </button>
       </div>
 
+      {/* 🚗 Aba de Compra de Carros */}
+      {activeTab === 'cars' && (
+        <div className={styles.itemsGrid}>
+          {carInventory.map((car) => (
+            <div key={car.id} className={styles.itemCard}>
+              <h3>{car.name}</h3>
+              <p>Speed: {car.speed} km/h</p>
+              <p>Price: ${car.price}</p>
+              <button
+                onClick={() => handleBuyCar(car)}
+                disabled={balance < car.price} // ✅ Desativa se o saldo for insuficiente
+              >
+                {balance >= car.price ? 'Buy' : 'Not Enough Money'}
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* ⚙️ Aba de Compra de Upgrades */}
+      {activeTab === 'upgrades' && (
+        <div className={styles.itemsGrid}>
+          {shopItems.map((item) => {
+            const owned = purchasedUpgrades.some((upgrade) => upgrade.id === item.id);
+            return (
+              <div key={item.id} className={`${styles.itemCard} ${owned ? styles.owned : ''}`}>
+                <h3>{item.name}</h3>
+                <p>Price: ${item.price}</p>
+                <button
+                  onClick={() => handleBuyUpgrade(item)}
+                  disabled={balance < item.price || owned} // ✅ Desativa se já comprado ou saldo insuficiente
+                >
+                  {owned ? '✔ Owned' : 'Buy'}
+                </button>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* 🎯 Lista de Upgrades Comprados */}
       <h2>Your Upgrades</h2>
-      <ul>
-        {cart.length > 0 ? (
-          cart.map((item, index) => <li key={index}>{item.name}</li>)
+      <ul className={styles.upgradesList}>
+        {purchasedUpgrades.length > 0 ? (
+          purchasedUpgrades.map((item) => <li key={item.id}>✅ {item.name}</li>)
         ) : (
           <p>No upgrades purchased yet.</p>
         )}

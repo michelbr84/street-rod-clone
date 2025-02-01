@@ -1,41 +1,216 @@
+/* 🎯 Container principal da loja */
 .shopContainer {
   text-align: center;
   padding: 20px;
   background: #222;
   color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  font-family: Arial, sans-serif;
 }
 
+/* 🏪 Título da loja */
+.shopContainer h1 {
+  font-size: 2.5rem;
+  color: #ffcc00;
+  margin-bottom: 10px;
+  text-shadow: 0 0 10px rgba(255, 204, 0, 0.8);
+}
+
+/* 💰 Saldo do jogador */
+.shopContainer p {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  color: #ffcc00;
+  font-weight: bold;
+}
+
+/* 📦 Grade de itens */
 .itemsGrid {
   display: flex;
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
   margin-top: 20px;
+  max-width: 1000px;
 }
 
+/* 🗂️ Cartão de cada item */
 .itemCard {
   background: #333;
   padding: 15px;
   border-radius: 10px;
-  width: 200px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  width: 220px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
 }
 
+.itemCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 15px rgba(255, 204, 0, 0.6);
+  border-color: #ffcc00;
+}
+
+/* ✨ Efeito de brilho ao passar o mouse */
+.itemCard::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent 70%);
+  transform: rotate(45deg);
+  transition: opacity 0.5s;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.itemCard:hover::before {
+  opacity: 0.4;
+  animation: shine 1s linear infinite;
+}
+
+@keyframes shine {
+  0% {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+  100% {
+    transform: translate(150%, 150%) rotate(45deg);
+  }
+}
+
+/* 📋 Nome do item */
 .itemCard h3 {
   margin: 0;
+  font-size: 1.4rem;
+  color: #ffcc00;
 }
 
+/* 💸 Preço do item */
+.itemCard p {
+  margin: 8px 0;
+  font-size: 1.1rem;
+  color: #ccc;
+}
+
+/* 🛒 Botão de compra */
 .itemCard button {
   background: #28a745;
   color: white;
   border: none;
-  padding: 8px;
+  padding: 10px 15px;
   cursor: pointer;
   margin-top: 10px;
-  border-radius: 5px;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.itemCard button:hover {
+  background: #218838;
+  transform: scale(1.05);
 }
 
 .itemCard button:disabled {
   background: #777;
   cursor: not-allowed;
+  opacity: 0.7;
+  transform: none;
+}
+
+/* ✔️ Estilo para itens já comprados */
+.ownedItem {
+  background: #444;
+  border: 2px solid #28a745;
+  color: #28a745;
+  cursor: default;
+}
+
+.ownedItem:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* 🎯 Lista de upgrades comprados */
+.upgradesList {
+  margin-top: 20px;
+  background: #111;
+  padding: 15px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 90%;
+  text-align: left;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+}
+
+.upgradesList li {
+  background: #333;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  color: #fff;
+  transition: background 0.3s ease;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.upgradesList li:hover {
+  background: #444;
+  cursor: pointer;
+}
+
+/* 🗂️ Botões de alternância (Carros e Upgrades) */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.tabs button {
+  background: #444;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.tabs button:hover {
+  background: #555;
+}
+
+.activeTab {
+  background: #ffcc00;
+  color: black;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* 📱 Responsividade */
+@media (max-width: 768px) {
+  .itemsGrid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .itemCard {
+    width: 90%;
+    max-width: 300px;
+  }
+
+  .shopContainer h1 {
+    font-size: 2rem;
+  }
 }

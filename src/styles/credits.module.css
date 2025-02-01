@@ -1,0 +1,39 @@
+/* src/styles/credits.module.css */
+.creditsContainer {
+  text-align: center;
+  background: #222;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.teamList {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  font-size: 18px;
+}
+
+.teamList li {
+  margin: 8px 0;
+  font-weight: bold;
+}
+
+.backButton {
+  display: inline-block;
+  padding: 12px 24px;
+  font-size: 18px;
+  text-decoration: none;
+  color: white;
+  background: #ff4500;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.backButton:hover {
+  background: #c0392b;
+}

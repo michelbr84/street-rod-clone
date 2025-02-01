@@ -1,0 +1,35 @@
+.editorContainer {
+  text-align: center;
+  padding: 20px;
+  background: #222;
+  color: white;
+  min-height: 100vh;
+}
+
+.partsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.partItem {
+  background: #333;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px;
+  background: #ffcc00;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #ffa500;
+}

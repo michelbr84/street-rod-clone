@@ -1,26 +1,146 @@
 /* src/styles/race.module.css */
+
 .raceContainer {
   text-align: center;
-  background-color: #222;
+  background: black;
   color: white;
-  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  position: relative;
 }
 
+/* 🎮 Controles do jogador */
 .controls {
+  display: flex;
+  gap: 15px;
   margin-top: 20px;
 }
 
 .controls button {
+  padding: 12px 20px;
   font-size: 18px;
-  margin: 5px;
-  padding: 10px 20px;
   border: none;
-  background: orange;
-  color: black;
   cursor: pointer;
+  border-radius: 8px;
+  transition: 0.3s;
 }
 
 .controls button:disabled {
-  background: gray;
+  opacity: 0.5;
   cursor: not-allowed;
+}
+
+.controls button:nth-child(1) {
+  background: #ffcc00;
+  color: black;
+}
+
+.controls button:nth-child(2) {
+  background: red;
+  color: white;
+}
+
+.controls button:hover {
+  opacity: 0.8;
+}
+
+/* 🏁 Resultado da corrida */
+.result {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+/* 🚔 Efeito de perseguição policial */
+.policeOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 0, 0, 0.2);
+  animation: policeLights 0.5s infinite alternate;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+@keyframes policeLights {
+  0% { background: rgba(255, 0, 0, 0.5); }
+  100% { background: rgba(0, 0, 255, 0.5); }
+}
+
+/* 📢 Alertas de eventos policiais */
+.policeAlert {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  background: black;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px red;
+  z-index: 1001;
+  animation: alertBlink 1s infinite alternate;
+}
+
+@keyframes alertBlink {
+  0% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+
+/* 🔥 Multa aplicada */
+.fineAlert {
+  background: rgba(255, 165, 0, 0.8);
+  box-shadow: 0px 0px 15px orange;
+}
+
+/* ❌ Carro apreendido */
+.seizedAlert {
+  background: rgba(255, 0, 0, 0.8);
+  box-shadow: 0px 0px 15px darkred;
+}
+
+/* 🛠️ MODO DEBUG (Mostra informações detalhadas na tela) */
+.debugInfo {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  font-size: 14px;
+  color: lime;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 2000;
+  font-family: monospace;
+  text-align: left;
+  white-space: pre-line;
+}
+
+/* 📱 Responsividade */
+@media (max-width: 768px) {
+  .controls {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .controls button {
+    width: 100%;
+  }
+
+  .policeAlert {
+    font-size: 1.5rem;
+    padding: 15px;
+  }
+
+  .debugInfo {
+    font-size: 12px;
+    padding: 8px;
+  }
 }

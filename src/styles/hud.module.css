@@ -1,17 +1,38 @@
 /* src/styles/hud.module.css */
-.hud {
+.hudContainer {
   display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 20px;
+  justify-content: space-around;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  width: 90%;
+  max-width: 600px;
+  margin: 10px auto;
 }
 
-.infoBox {
-  background: black;
-  color: limegreen;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  min-width: 120px;
-  text-align: center;
+/* Estilo individual para cada item do HUD */
+.hudItem {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Ícones maiores */
+.icon {
+  font-size: 1.5rem;
+}
+
+/* 🔥 Dinâmica de cores para o nível de combustível */
+.fuelHigh {
+  color: #4caf50; /* Verde */
+}
+.fuelMedium {
+  color: #ff9800; /* Amarelo */
+}
+.fuelLow {
+  color: #f44336; /* Vermelho */
 }

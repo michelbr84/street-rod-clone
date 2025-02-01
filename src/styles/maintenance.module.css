@@ -1,0 +1,75 @@
+/* 📦 Container principal */
+.container {
+  text-align: center;
+  padding: 20px;
+  background: #222;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+}
+
+/* 🚗 Estilo do título */
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: #ffcc00;
+}
+
+/* 📋 Informações do carro */
+p {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+/* 🛠️ Botão de ação */
+button {
+  padding: 12px 24px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 10px;
+  font-size: 16px;
+  transition: background-color 0.3s, transform 0.2s ease-in-out;
+}
+
+/* 🎯 Efeito hover nos botões */
+button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+/* 🚫 Botão desabilitado */
+button:disabled {
+  background-color: #666;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* 🔙 Botão de voltar */
+.backButton {
+  background-color: #555;
+  border: 2px solid #777;
+}
+
+.backButton:hover {
+  background-color: #444;
+  border-color: #999;
+}
+
+/* 📱 Responsividade */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  button {
+    width: 90%;
+    font-size: 1rem;
+  }
+}

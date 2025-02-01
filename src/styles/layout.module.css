@@ -1,11 +1,76 @@
 /* src/styles/layout.module.css */
+
+/* 🎯 Container principal do layout */
 .container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* ✅ Garante que o layout ocupe toda a tela */
+  min-height: 100vh; /* 🔥 Garante que a página ocupe toda a altura da tela */
+  background: #111;  /* 🌌 Fundo escuro, mas não preto absoluto */
+  color: white;      /* 🎨 Texto em branco para bom contraste */
+  font-family: 'Arial', sans-serif; /* 📝 Tipografia básica */
 }
 
+/* 📦 Área principal do conteúdo */
 .content {
-  flex-grow: 1; /* ✅ Permite que o conteúdo expanda automaticamente */
+  flex: 1; /* 🔥 Faz o conteúdo expandir para preencher o espaço disponível */
   padding: 20px;
+  display: flex;
+  justify-content: center; /* ⬆️ Centraliza horizontalmente */
+  align-items: center;     /* ↔️ Centraliza verticalmente */
+  flex-direction: column;  /* 📐 Permite empilhar elementos verticalmente */
+  gap: 20px;               /* 🌟 Espaço entre os elementos */
+  max-width: 1200px;       /* 🖥️ Limita a largura para telas grandes */
+  margin: 0 auto;          /* 🔄 Centraliza o conteúdo na página */
+}
+
+/* 🚀 Navbar fixa no topo */
+.navbar {
+  background: #222;        /* 🔳 Cor de fundo escura */
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* 🌑 Sombra suave */
+  position: sticky;
+  top: 0;
+  z-index: 1000;           /* 🔝 Garante que fique acima de outros elementos */
+}
+
+/* 🚩 Footer fixo na parte inferior */
+.footer {
+  background: #222;
+  padding: 15px;
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.8;            /* 🔍 Leve transparência */
+  color: #ccc;
+  border-top: 1px solid #333; /* 🔗 Linha sutil separando o footer */
+}
+
+/* 🌍 Links do footer */
+.footer a {
+  color: #ffcc00;           /* 🎯 Cor destacada para links */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: #ffaa00;           /* ✨ Cor mais vibrante ao passar o mouse */
+  text-decoration: underline;
+}
+
+/* 📱 Responsividade */
+@media (max-width: 768px) {
+  .content {
+    padding: 15px;          /* 🔄 Reduz o padding em telas menores */
+  }
+
+  .navbar, .footer {
+    text-align: center;     /* 📝 Centraliza o texto */
+    flex-direction: column;
+  }
+
+  .navbar {
+    padding: 15px 10px;     /* 📦 Ajuste de espaçamento para dispositivos móveis */
+  }
 }

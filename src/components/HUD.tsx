@@ -10,13 +10,28 @@ interface HUDProps {
 }
 
 export default function HUD({ speed, gear, time, fuel, position }: HUDProps) {
+  // 🔥 Ajusta a cor do combustível dinamicamente (verde, amarelo, vermelho)
+  const fuelLevelClass =
+    fuel > 50 ? styles.fuelHigh : fuel > 20 ? styles.fuelMedium : styles.fuelLow;
+
   return (
-    <div className={styles.hud}>
-      <div className={styles.infoBox}>🚀 Speed: {speed} km/h</div>
-      <div className={styles.infoBox}>⚙️ Gear: {gear}</div>
-      <div className={styles.infoBox}>⏱ Time: {time}s</div>
-      <div className={styles.infoBox}>⛽ Fuel: {fuel.toFixed(1)}%</div>
-      <div className={styles.infoBox}>🏁 Position: {position}/5</div>
+    <div className={styles.hudContainer}>
+      <div className={styles.hudItem}>
+        <span className={styles.icon}>🚀</span> Speed: <strong>{speed.toFixed(0)}</strong> km/h
+      </div>
+      <div className={styles.hudItem}>
+        <span className={styles.icon}>⚙️</span> Gear: <strong>{speed === 0 ? 'N' : gear}</strong>{' '}
+        {/* Exibe "N" se o carro estiver parado */}
+      </div>
+      <div className={styles.hudItem}>
+        <span className={styles.icon}>⏱</span> Time: <strong>{time.toFixed(1)}</strong> s
+      </div>
+      <div className={`${styles.hudItem} ${fuelLevelClass}`}>
+        <span className={styles.icon}>⛽</span> Fuel: <strong>{fuel.toFixed(1)}</strong>%
+      </div>
+      <div className={styles.hudItem}>
+        <span className={styles.icon}>🏁</span> Position: <strong>{position}</strong>/5
+      </div>
     </div>
   );
 }

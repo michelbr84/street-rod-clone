@@ -1,49 +1,95 @@
-.container {
+/* src/styles/home.module.css */
+.homeContainer {
+  text-align: center;
+  background: #111;
+  color: white;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  background: #000;
+  padding: 20px;
+}
+
+.homeHeader {
+  margin-bottom: 20px;
+}
+
+.homeContent {
+  max-width: 600px;
+  padding: 20px;
+}
+
+.homeBanner {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
+}
+
+.homeButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.homeButton {
+  display: inline-block;
+  padding: 12px 24px;
+  font-size: 18px;
+  text-decoration: none;
   color: white;
+  border-radius: 8px;
+  transition: 0.3s;
+  width: 100%;
   text-align: center;
 }
 
-.banner {
-  width: 80%;
-  max-width: 600px;
-  margin-bottom: 20px;
+/* 🎨 Estilos específicos para cada botão */
+.play {
+  background: #ff6600;
 }
 
-.title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.subtitle {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-  opacity: 0.8;
-}
-
-.menu {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.button {
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #fff;
+.play:hover {
   background: #ff4500;
-  border-radius: 5px;
-  text-decoration: none;
-  transition: 0.3s;
 }
 
-.button:hover {
-  background: #ff7700;
+.garage {
+  background: #007bff;
+}
+
+.garage:hover {
+  background: #0056b3;
+}
+
+.settings {
+  background: #4caf50;
+}
+
+.settings:hover {
+  background: #388e3c;
+}
+
+.credits {
+  background: #9c27b0;
+}
+
+.credits:hover {
+  background: #7b1fa2;
+}
+
+.homeFooter {
+  margin-top: 20px;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+/* 📱 Responsividade */
+@media (max-width: 768px) {
+  .homeButton {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
 }

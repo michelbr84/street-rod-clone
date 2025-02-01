@@ -1,4 +1,42 @@
 {
-  "files": [],
-  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }]
+  "compilerOptions": {
+    "target": "ESNext",                      // ✅ Suporte para JavaScript moderno
+    "useDefineForClassFields": true,         // ✅ Garante o comportamento correto para campos de classes
+    "module": "ESNext",                      // ✅ Compatível com Vite (ESM)
+    "moduleResolution": "Node",              // ✅ Resolve módulos como o Node.js
+    "lib": ["DOM", "DOM.Iterable", "ESNext"], // ✅ Suporte para APIs do navegador e recursos modernos do JS
+    "allowJs": true,                         // ✅ Permite importar arquivos JS
+    "skipLibCheck": true,                    // ✅ Ignora a checagem de tipos em arquivos de definição de bibliotecas
+    "esModuleInterop": true,                 // ✅ Permite importar módulos CommonJS com `import`
+    "allowSyntheticDefaultImports": true,    // ✅ Permite importar `default` de módulos sem `export default`
+    "strict": true,                          // ✅ Ativa o modo estrito do TypeScript (melhor para evitar bugs)
+    "forceConsistentCasingInFileNames": true, // ✅ Evita problemas com nomes de arquivos em sistemas sensíveis a maiúsculas/minúsculas
+    "noFallthroughCasesInSwitch": true,      // ✅ Garante que casos em `switch` não passem despercebidos
+    "resolveJsonModule": true,               // ✅ Permite importar arquivos JSON diretamente
+    "isolatedModules": true,                 // ✅ Necessário para o Vite + React (checa cada arquivo de forma independente)
+    "jsx": "react-jsx",                      // ✅ Suporte para JSX moderno (React 17+)
+    "baseUrl": ".",                          // ✅ Permite o uso de caminhos relativos à raiz do projeto
+    "paths": {
+      "@/*": ["src/*"]                       // ✅ Atalho para importar arquivos da pasta `src`
+    },
+    "noEmit": true,                          // ✅ Evita a emissão de arquivos JS (útil para projetos que usam Vite)
+    "incremental": true,                     // ✅ Compilação incremental para melhorar o desempenho
+    "types": ["jest", "node"]                // ✅ Suporte para Jest e Node.js no TypeScript
+  },
+  "include": [
+    "src",                                   // ✅ Inclui a pasta `src` para compilação
+    "src/**/*.ts",                           // ✅ Inclui todos os arquivos TypeScript
+    "src/**/*.tsx",                          // ✅ Inclui arquivos TypeScript com JSX
+    "src/**/*.test.ts",                      // ✅ Inclui arquivos de teste TypeScript
+    "src/**/*.test.tsx"                      // ✅ Inclui testes em React com TypeScript
+  ],
+  "exclude": [
+    "node_modules",                          // ✅ Exclui `node_modules` da compilação
+    "dist",                                  // ✅ Exclui a pasta de build
+    "coverage"                               // ✅ Exclui a pasta de cobertura de testes
+  ],
+  "references": [
+    { "path": "./tsconfig.app.json" },       // ✅ Configuração para o app principal
+    { "path": "./tsconfig.node.json" }       // ✅ Configuração para scripts Node.js (se necessário)
+  ]
 }
