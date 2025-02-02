@@ -1,12 +1,17 @@
+/* src/styles/footer.module.css */
+
+/* 🌍 Rodapé Principal */
 .footer {
-  background-color: #111;
-  color: #ccc;
-  padding: 15px 20px;
+  background: #222;
+  color: #ddd;
+  padding: 20px 0;
   text-align: center;
-  border-top: 2px solid #333;
-  margin-top: auto; /* Mantém o footer no final da página */
+  font-size: 14px;
+  border-top: 2px solid #444;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
 }
 
+/* 📦 Conteúdo do Rodapé */
 .footerContent {
   display: flex;
   flex-direction: column;
@@ -14,18 +19,39 @@
   gap: 10px;
 }
 
-.footerNav {
-  display: flex;
-  gap: 20px;
-}
-
-.footerNav a {
+/* 🔗 Links do Rodapé */
+.footerNav a,
+.socialLinks a {
   color: #ffcc00;
   text-decoration: none;
+  margin: 0 10px;
   transition: color 0.3s ease;
 }
 
-.footerNav a:hover {
-  color: #ff9900;
+.footerNav a:hover,
+.socialLinks a:hover {
+  color: #ffaa00;
   text-decoration: underline;
+}
+
+/* 🌐 Links de Redes Sociais */
+.socialLinks {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+/* 📱 Responsividade */
+@media (max-width: 600px) {
+  .footerContent {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .footerNav,
+  .socialLinks {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
 }

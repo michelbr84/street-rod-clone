@@ -1,5 +1,5 @@
 // src/components/Navbar.tsx
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styles from '../styles/navbar.module.css';
 
 export default function Navbar() {
@@ -7,56 +7,135 @@ export default function Navbar() {
     <header className={styles.navbar}>
       <nav>
         <ul className={styles.navList}>
+          {/* 🏠 Navegação Principal */}
           <li>
-            <Link to="/">🏠 Home</Link>
+            <NavLink to="/" className={({ isActive }) => (isActive ? styles.active : '')}>
+              🏠 Home
+            </NavLink>
           </li>
           <li>
-            <Link to="/garage">🚗 Garage</Link>
+            <NavLink to="/garage" className={({ isActive }) => (isActive ? styles.active : '')}>
+              🚗 Garage
+            </NavLink>
           </li>
           <li>
-            <Link to="/shop">🛒 Shop</Link>
+            <NavLink to="/shop" className={({ isActive }) => (isActive ? styles.active : '')}>
+              🛒 Shop
+            </NavLink>
+          </li>
+
+          {/* 🏎️ Modos de Corrida */}
+          <li>
+            <NavLink
+              to="/select-track"
+              className={({ isActive }) => (isActive ? styles.active : '')}
+            >
+              🏎️ Race
+            </NavLink>
           </li>
           <li>
-            <Link to="/race">🏎️ Race</Link>
+            <NavLink to="/drag-race" className={({ isActive }) => (isActive ? styles.active : '')}>
+              🚀 Drag Race
+            </NavLink>
           </li>
           <li>
-            <Link to="/drag-race">🚀 Drag Race</Link> {/* ✅ Adicionado */}
+            <NavLink
+              to="/circuit-race"
+              className={({ isActive }) => (isActive ? styles.active : '')}
+            >
+              🏁 Circuit Race
+            </NavLink>
+          </li>
+
+          {/* ⛽ Serviços */}
+          <li>
+            <NavLink
+              to="/fuel-station"
+              className={({ isActive }) => (isActive ? styles.active : '')}
+            >
+              ⛽ Fuel Station
+            </NavLink>
           </li>
           <li>
-            <Link to="/circuit-race">🏁 Circuit Race</Link> {/* ✅ Adicionado */}
+            <NavLink
+              to="/repair-shop"
+              className={({ isActive }) => (isActive ? styles.active : '')}
+            >
+              🔧 Repair Shop
+            </NavLink>
           </li>
           <li>
-            <Link to="/fuel-station">⛽ Fuel Station</Link>
+            <NavLink
+              to="/maintenance"
+              className={({ isActive }) => (isActive ? styles.active : '')}
+            >
+              🛠️ Maintenance
+            </NavLink>
+          </li>
+
+          {/* 🚔 Eventos Especiais */}
+          <li>
+            <NavLink
+              to="/police-chase"
+              className={({ isActive }) => (isActive ? styles.active : '')}
+            >
+              🚔 Police Chase
+            </NavLink>
           </li>
           <li>
-            <Link to="/police-chase">🚔 Police Chase</Link>
+            <NavLink
+              to="/challenge-king"
+              className={({ isActive }) => (isActive ? styles.active : '')}
+            >
+              👑 Challenge The King
+            </NavLink>
+          </li>
+
+          {/* 🏆 Progresso e Rankings */}
+          <li>
+            <NavLink
+              to="/leaderboard"
+              className={({ isActive }) => (isActive ? styles.active : '')}
+            >
+              🏆 Leaderboard
+            </NavLink>
           </li>
           <li>
-            <Link to="/repair-shop">🔧 Repair Shop</Link> {/* ✅ Adicionado */}
+            <NavLink to="/victory" className={({ isActive }) => (isActive ? styles.active : '')}>
+              🎉 Victory
+            </NavLink>
           </li>
           <li>
-            <Link to="/maintenance">🛠️ Maintenance</Link> {/* ✅ Adicionado */}
+            <NavLink to="/game-over" className={({ isActive }) => (isActive ? styles.active : '')}>
+              💀 Game Over
+            </NavLink>
+          </li>
+
+          {/* ⚙️ Configurações */}
+          <li>
+            <NavLink to="/game" className={({ isActive }) => (isActive ? styles.active : '')}>
+              🎮 Game
+            </NavLink>
           </li>
           <li>
-            <Link to="/challenge-king">👑 Challenge The King</Link> {/* 🚩 Novo */}
+            <NavLink to="/settings" className={({ isActive }) => (isActive ? styles.active : '')}>
+              ⚙️ Settings
+            </NavLink>
           </li>
           <li>
-            <Link to="/leaderboard">🏆 Leaderboard</Link>
+            <NavLink
+              to="/engine-editor"
+              className={({ isActive }) => (isActive ? styles.active : '')}
+            >
+              🔩 Engine Editor
+            </NavLink>
           </li>
+
+          {/* 📜 Créditos */}
           <li>
-            <Link to="/game-over">💀 Game Over</Link>
-          </li>
-          <li>
-            <Link to="/game">🎮 Game</Link>
-          </li>
-          <li>
-            <Link to="/settings">⚙️ Settings</Link>
-          </li>
-          <li>
-            <Link to="/credits">📜 Credits</Link>
-          </li>
-          <li>
-            <Link to="/engine-editor">🔩 Engine Editor</Link>
+            <NavLink to="/credits" className={({ isActive }) => (isActive ? styles.active : '')}>
+              📜 Credits
+            </NavLink>
           </li>
         </ul>
       </nav>

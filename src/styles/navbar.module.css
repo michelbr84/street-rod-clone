@@ -1,35 +1,55 @@
 /* src/styles/navbar.module.css */
+
+/* 🚀 Estilo da Navbar */
 .navbar {
-  background: #222;
-  padding: 15px;
+  background: #222; /* 🌑 Cor de fundo escura */
+  padding: 15px 20px;
   display: flex;
   justify-content: center;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  align-items: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* 🌫️ Sombra suave */
+  position: sticky; /* 🔝 Fixa no topo ao rolar */
+  top: 0;
+  z-index: 1000; /* Garante que fique sobre outros elementos */
 }
 
+/* 📋 Lista de Navegação */
 .navList {
-  list-style: none;
+  list-style: none; /* Remove marcadores padrão */
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap;  /* Permite quebra de linha em telas menores */
   gap: 15px;
   padding: 0;
+  margin: 0;
 }
 
+/* 🔗 Estilo dos Links */
 .navList li {
   display: inline-block;
 }
 
 .navList a {
-  text-decoration: none;
-  color: white;
-  font-size: 18px;
-  padding: 10px 15px;
-  border-radius: 5px;
-  transition: background 0.3s;
+  text-decoration: none;       /* Remove sublinhado */
+  color: white;                /* Cor do texto */
+  font-size: 18px;             /* Tamanho da fonte */
+  padding: 10px 15px;          /* Espaçamento interno */
+  border-radius: 5px;          /* Borda arredondada */
+  transition: background 0.3s, transform 0.2s; /* Animação suave */
+  font-weight: bold;           /* Negrito para destaque */
 }
 
+/* 🖱️ Efeito de Hover */
 .navList a:hover {
-  background: #ff6600;
+  background: #ff6600; /* Laranja vibrante ao passar o mouse */
+  color: black;        /* Contraste com o fundo laranja */
+  transform: scale(1.05); /* Leve "zoom" ao passar o mouse */
+}
+
+/* ⭐ Estilo para o link ativo (página atual) */
+.active {
+  background: #ffcc00; /* Amarelo vibrante para destacar */
+  color: black;
+  box-shadow: 0 0 10px #ffcc00; /* Efeito de brilho */
 }
 
 /* 📱 Responsividade */
@@ -39,14 +59,16 @@
   }
 
   .navList {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    flex-direction: column;     /* Empilha os links verticalmente */
+    align-items: center;        /* Centraliza os links */
+    gap: 10px;                  /* Espaçamento entre os itens */
   }
 
   .navList a {
-    display: block;
+    display: block;             /* Ocupa toda a largura disponível */
     width: 100%;
-    text-align: center;
+    text-align: center;         /* Centraliza o texto */
+    padding: 12px;              /* Aumenta o espaçamento para facilitar o toque */
+    font-size: 20px;            /* Texto maior para dispositivos móveis */
   }
 }

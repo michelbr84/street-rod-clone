@@ -1,38 +1,165 @@
 /* src/styles/hud.module.css */
+
+/* 🎯 Estilo principal do container do HUD */
 .hudContainer {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.85); /* 🖤 Fundo semi-transparente para maior contraste */
   padding: 10px 20px;
   border-radius: 10px;
-  color: white;
+  color: #ffffff;
   font-size: 1.2rem;
   font-weight: bold;
   width: 90%;
   max-width: 600px;
   margin: 10px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); /* 🌟 Efeito de sombra para destacar */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* 🖋️ Borda sutil para definição */
+  transition: all 0.3s ease-in-out; /* ✨ Suavidade em transições */
 }
 
-/* Estilo individual para cada item do HUD */
+/* 🎯 Estilo individual para cada item do HUD */
 .hudItem {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.1); /* 🌫️ Leve destaque de fundo */
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* Ícones maiores */
+/* 🚀 Efeito de destaque ao passar o mouse */
+.hudItem:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05); /* 🔍 Leve aumento para sensação de "pop" */
+}
+
+/* 📊 Ícones do HUD */
 .icon {
-  font-size: 1.5rem;
+  font-size: 1.5rem; /* Tamanho maior para melhor visibilidade */
+  transition: transform 0.3s ease;
+}
+
+/* 🔄 Animação de pulso para ícones importantes */
+.icon:hover {
+  transform: scale(1.2);
 }
 
 /* 🔥 Dinâmica de cores para o nível de combustível */
 .fuelHigh {
-  color: #4caf50; /* Verde */
+  color: #4caf50; /* ✅ Verde (acima de 50%) */
 }
+
 .fuelMedium {
-  color: #ff9800; /* Amarelo */
+  color: #ff9800; /* ⚠️ Amarelo (entre 20% e 50%) */
 }
+
 .fuelLow {
-  color: #f44336; /* Vermelho */
+  color: #f44336; /* 🚨 Vermelho (abaixo de 20%) */
+  animation: blink 1s infinite alternate; /* 🔔 Piscar quando o combustível estiver crítico */
+}
+
+/* 💡 Animação de "piscar" */
+@keyframes blink {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
+
+/* 🚀 Cores para o status da velocidade */
+.speedLow {
+  color: #8bc34a; /* 🟢 Verde suave para velocidades baixas */
+}
+
+.speedMedium {
+  color: #ffc107; /* 🟡 Amarelo vibrante para velocidades médias */
+}
+
+.speedHigh {
+  color: #ff5722; /* 🔥 Vermelho intenso para alta velocidade */
+  animation: pulse 1s infinite ease-in-out; /* Efeito de pulso para alta velocidade */
+}
+
+/* 🌟 Animação de pulso */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 💥 Estilo para o indicador de danos */
+.damageLow {
+  color: #4caf50; /* ✅ Verde (dano leve) */
+}
+
+.damageMedium {
+  color: #ffeb3b; /* ⚠️ Amarelo (dano moderado) */
+}
+
+.damageHigh {
+  color: #f44336; /* ❌ Vermelho (dano crítico) */
+  animation: shake 0.5s infinite; /* 💢 Efeito de "tremor" quando o dano for crítico */
+}
+
+/* 💢 Animação de "tremor" para danos críticos */
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+  75% {
+    transform: translateX(-3px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* 🛞 Estilo para o desgaste dos pneus */
+.tireGood {
+  color: #4caf50; /* 🟢 Verde (desgaste abaixo de 30%) */
+}
+
+.tireWorn {
+  color: #ff9800; /* 🟠 Laranja (desgaste entre 30% e 60%) */
+  animation: pulse 2s infinite ease-in-out; /* Animação sutil para alerta */
+}
+
+.tireCritical {
+  color: #f44336; /* 🔴 Vermelho (desgaste acima de 60%) */
+  animation: blink 1s infinite alternate; /* Piscar quando o desgaste for crítico */
+}
+
+/* 📱 Responsividade */
+@media (max-width: 480px) {
+  .hudContainer {
+    flex-direction: column; /* 📏 Itens em coluna para telas menores */
+    padding: 15px;
+    gap: 10px;
+  }
+
+  .hudItem {
+    font-size: 1rem;
+    gap: 4px;
+  }
+
+  .icon {
+    font-size: 1.2rem;
+  }
 }

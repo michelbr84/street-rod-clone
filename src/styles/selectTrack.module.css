@@ -1,0 +1,154 @@
+/* src/styles/selectTrack.module.css */
+
+.container {
+  text-align: center;
+  padding: 20px;
+  background: #111;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #ffcc00;
+}
+
+/* 🎯 Lista de pistas */
+.trackList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 300px;
+}
+
+/* 🛣️ Botões de seleção de pista */
+.trackButton {
+  background: #222;
+  color: white;
+  padding: 15px;
+  border: 2px solid #444;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-size: 1.1rem;
+}
+
+.trackButton:hover {
+  background: #ffcc00;
+  color: black;
+  transform: scale(1.05);
+}
+
+/* ✅ Pista selecionada */
+.selected {
+  background: #ff6600;
+  color: black;
+  font-weight: bold;
+  border-color: #ffcc00;
+  transform: scale(1.05);
+}
+
+/* 🛞 Seção de seleção de pneus */
+.tireSelection {
+  margin: 20px 0;
+}
+
+.tireOptions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* 🚗 Botões de pneus */
+.tireButton {
+  background: #333;
+  color: white;
+  padding: 10px 20px;
+  border: 2px solid #555;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-size: 1rem;
+}
+
+.tireButton:hover {
+  background: #ffaa00;
+  color: black;
+  transform: scale(1.05);
+}
+
+/* ✅ Pneu selecionado */
+.tireButton.selected {
+  background: #ff6600;
+  color: black;
+  font-weight: bold;
+  border-color: #ffcc00;
+}
+
+/* 🚩 Mensagem de erro */
+.error {
+  color: #ff4444;
+  font-weight: bold;
+  margin: 10px 0;
+  animation: blink 1s infinite alternate;
+}
+
+/* 🔔 Animação de piscar */
+@keyframes blink {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
+
+/* 🚀 Botão de iniciar corrida */
+.startButton {
+  background: #28a745;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-size: 1.2rem;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.startButton:hover {
+  background: #1e7e34;
+  transform: scale(1.05);
+}
+
+/* 🚫 Botão desabilitado */
+.startButton:disabled {
+  background: #555;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* 📱 Responsividade para telas menores */
+@media (max-width: 480px) {
+  .trackList {
+    width: 90%;
+  }
+
+  .trackButton,
+  .tireButton,
+  .startButton {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+}
