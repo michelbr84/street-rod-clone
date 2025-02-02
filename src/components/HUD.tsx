@@ -14,28 +14,29 @@ interface HUDProps {
 export default function HUD({ speed = 0, gear = 0, time = 0, fuel = 100, position = 5 }: HUDProps) {
   const { tire } = useRace(); // 🛞 Obtém informações dos pneus do contexto
 
-  // 🔥 Ajusta a cor do combustível dinamicamente (verde, amarelo, vermelho)
-  const fuelLevelClass =
-    fuel > 50 ? styles.fuelHigh : fuel > 20 ? styles.fuelMedium : styles.fuelLow;
-
-  // 🚦 Feedback visual para a velocidade (verde, laranja, vermelho)
-  const speedStatus =
-    speed > 180 ? styles.speedHigh : speed > 100 ? styles.speedMedium : styles.speedLow;
-
-  // 🛞 Feedback visual para o desgaste dos pneus
-  const tireWearClass =
-    tire?.durability && tire.durability > 70
-      ? styles.tireGood
-      : tire?.durability && tire.durability > 40
-        ? styles.tireWorn
-        : styles.tireCritical;
-
-  // ✅ Verificação para evitar NaN
+  // ✅ Verificação para evitar NaN e valores indefinidos
   const safeSpeed = isNaN(speed) ? 0 : speed;
+  const safeGear = isNaN(gear) ? 0 : gear;
   const safeTime = isNaN(time) ? 0 : time;
   const safeFuel = isNaN(fuel) ? 0 : fuel;
   const safeTireDurability =
     tire?.durability !== undefined && !isNaN(tire.durability) ? tire.durability : 100;
+
+  // 🔥 Feedback visual para o nível de combustível (verde, amarelo, vermelho)
+  const fuelLevelClass =
+    safeFuel > 50 ? styles.fuelHigh : safeFuel > 20 ? styles.fuelMedium : styles.fuelLow;
+
+  // 🚦 Feedback visual para a velocidade (verde, laranja, vermelho)
+  const speedStatus =
+    safeSpeed > 180 ? styles.speedHigh : safeSpeed > 100 ? styles.speedMedium : styles.speedLow;
+
+  // 🛞 Feedback visual para o desgaste dos pneus
+  const tireWearClass =
+    safeTireDurability > 70
+      ? styles.tireGood
+      : safeTireDurability > 40
+        ? styles.tireWorn
+        : styles.tireCritical;
 
   return (
     <div className={styles.hudContainer}>
@@ -47,25 +48,25 @@ export default function HUD({ speed = 0, gear = 0, time = 0, fuel = 100, positio
       {/* ⚙️ Marcha */}
       <div className={styles.hudItem}>
         <span className={styles.icon}>⚙️</span> Gear:{' '}
-        <strong>{safeSpeed === 0 ? 'N' : gear}</strong>
+        <strong>{safeSpeed === 0 ? 'N' : safeGear}</strong>
       </div>
 
-      {/* ⏱️ Tempo */}
+      {/* ⏱️ Tempo de corrida */}
       <div className={styles.hudItem}>
         <span className={styles.icon}>⏱️</span> Time: <strong>{safeTime.toFixed(1)}</strong> s
       </div>
 
-      {/* ⛽ Combustível */}
+      {/* ⛽ Nível de combustível */}
       <div className={`${styles.hudItem} ${fuelLevelClass}`}>
         <span className={styles.icon}>⛽</span> Fuel: <strong>{safeFuel.toFixed(1)}</strong>%
       </div>
 
-      {/* 🏁 Posição na corrida */}
+      {/* 🏁 Posição atual na corrida */}
       <div className={styles.hudItem}>
         <span className={styles.icon}>🏁</span> Position: <strong>{position}</strong>/5
       </div>
 
-      {/* 🛞 Desgaste dos Pneus */}
+      {/* 🛞 Estado do desgaste dos pneus */}
       {tire && (
         <div className={`${styles.hudItem} ${tireWearClass}`}>
           <span className={styles.icon}>🛞</span> Tire Wear:{' '}

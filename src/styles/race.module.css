@@ -1,4 +1,4 @@
-/* src/styles/race.module.css */  ✅ Correto
+/* src/styles/race.module.css ✅ Correto */
 
 /* 🎯 Estilo principal do container da corrida */
 .raceContainer {
@@ -14,6 +14,8 @@
   position: relative;
   padding: 20px;
   box-sizing: border-box;
+  overflow: hidden; /* Para garantir que elementos animados não "vazem" */
+  transition: all 0.3s ease;
 }
 
 /* 🎮 Controles do jogador */
@@ -31,8 +33,9 @@
   border: none;
   cursor: pointer;
   border-radius: 8px;
-  transition: transform 0.3s ease, background 0.3s ease;
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
 }
 
 .controls button:disabled {
@@ -53,6 +56,7 @@
 .controls button:hover {
   transform: scale(1.05); /* Efeito de leve crescimento */
   opacity: 0.9;
+  box-shadow: 0 6px 12px rgba(255, 255, 255, 0.3);
 }
 
 /* 🏁 Resultado da corrida */
@@ -114,6 +118,7 @@
   box-shadow: 0px 0px 15px red;
   z-index: 1001;
   animation: alertBlink 1s infinite alternate;
+  border: 2px solid white;
 }
 
 @keyframes alertBlink {
@@ -160,24 +165,54 @@
   }
 }
 
-/* 🛠️ MODO DEBUG (Mostra informações detalhadas na tela) */
-.debugInfo {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  font-size: 14px;
-  color: lime;
-  background: rgba(0, 0, 0, 0.7);
-  padding: 10px;
-  border-radius: 5px;
-  z-index: 2000;
-  font-family: monospace;
-  text-align: left;
-  white-space: pre-line;
-  border: 1px solid lime;
+/* 💥 Tremor da tela */
+.shake {
+  animation: shake 0.4s ease-in-out;
 }
 
-/* 🏎️ Status dos Oponentes */
+@keyframes shake {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-5px, 5px); }
+  50% { transform: translate(5px, -5px); }
+  75% { transform: translate(-5px, 5px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* ⚡ Efeito de Flash */
+.flash {
+  animation: flash 0.3s ease-in-out;
+  background: rgba(255, 255, 255, 0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2000;
+}
+
+@keyframes flash {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* 🌪️ Efeito Glitch */
+.glitch {
+  animation: glitch 0.3s linear infinite;
+  color: red;
+  text-shadow: 2px 2px blue, -2px -2px lime;
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(2px, -2px); }
+  60% { transform: translate(-1px, 1px); }
+  80% { transform: translate(1px, -1px); }
+  100% { transform: translate(0); }
+}
+
+/* 🏁 Status dos Oponentes */
 .opponentsStatus {
   background: rgba(255, 255, 255, 0.1);
   padding: 10px;
@@ -187,6 +222,11 @@
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
   max-width: 300px;
   width: 90%;
+  transition: transform 0.3s ease;
+}
+
+.opponentsStatus:hover {
+  transform: scale(1.03); /* Pequeno destaque ao passar o mouse */
 }
 
 /* 📱 Responsividade */

@@ -1,3 +1,5 @@
+// src/context/CarContext.tsx
+
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 // 🚗 Tipo de Carro
@@ -17,7 +19,7 @@ interface CarContextType {
   balance: number;
   addCar: (car: Car) => void;
   sellCar: (carId: number) => void;
-  repairCar: (carId: number, cost: number) => void; // 🔧 Novo método para reparo de carros
+  repairCar: (carId: number, cost: number) => void; // 🔧 Método para reparo de carros
   updateBalance: (amount: number) => void; // ✅ Atualização de saldo
   resetGarage: () => void; // 🔄 Resetar a garagem
 }
