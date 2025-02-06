@@ -1,5 +1,6 @@
 // src/context/RaceContext.tsx
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { useAudio } from './AudioContext'; // 🎵 Importação do contexto de áudio
 
 /* 🌦️ Tipos de clima possíveis */
 type Weather = 'clear' | 'rainy' | 'foggy' | 'snowy';
@@ -41,17 +42,10 @@ interface RaceState {
 /* 🚗 Criação do contexto da corrida */
 const RaceContext = createContext<RaceState | undefined>(undefined);
 
-/* 🎵 Carregamento de sons */
-const engineSound = new Audio('/sounds/engine.mp3');
-engineSound.loop = true;
-
-const tireScreechSound = new Audio('/sounds/tire_screech.mp3');
-const gearShiftSound = new Audio('/sounds/gear_shift.mp3');
-const engineRoarSound = new Audio('/sounds/engine_roar.mp3');
-const crashSound = new Audio('/sounds/crash.mp3');
-
 /* 🚀 Provedor do contexto da corrida */
 export function RaceProvider({ children }: { children: ReactNode }) {
+  const { volume } = useAudio(); // 🎚️ Volume global do contexto de áudio
+
   const [track, setTrack] = useState<Track | null>(null);
   const [speed, setSpeed] = useState(0);
   const [gear, setGear] = useState(1);
@@ -68,6 +62,24 @@ export function RaceProvider({ children }: { children: ReactNode }) {
     wearRate: 0.5,
   });
 
+  /* 🎵 Carregamento de sons */
+  const sounds = {
+    engine: new Audio('/sounds/engine.mp3'),
+    tireScreech: new Audio('/sounds/tire_screech.mp3'),
+    gearShift: new Audio('/sounds/gear_shift.mp3'),
+    engineRoar: new Audio('/sounds/engine_roar.mp3'),
+    crash: new Audio('/sounds/crash.mp3'),
+  };
+
+  sounds.engine.loop = true;
+
+  /* 🔊 Sincroniza o volume global com os sons da corrida */
+  useEffect(() => {
+    Object.values(sounds).forEach((sound) => {
+      sound.volume = volume;
+    });
+  }, [volume]);
+
   /* 🚦 Iniciar corrida */
   const startRace = (selectedTrack: Track, tireType: TireType) => {
     setTrack(selectedTrack);
@@ -79,7 +91,7 @@ export function RaceProvider({ children }: { children: ReactNode }) {
     setIsRaceActive(true);
     changeTire(tireType);
 
-    engineSound.play().catch((err) => console.log('Erro ao iniciar som do motor:', err));
+    sounds.engine.play().catch((err) => console.log('Erro ao iniciar som do motor:', err));
   };
 
   /* 🔄 Troca de pneus */
@@ -97,12 +109,12 @@ export function RaceProvider({ children }: { children: ReactNode }) {
     if (fuel > 0 && isRaceActive && track) {
       const gripEffect = tire.grip * track.gripModifier * (tire.durability / 100);
       const newSpeed = Math.min(220, speed + 10 * gripEffect);
-      setSpeed(isNaN(newSpeed) ? 0 : newSpeed);
+      setSpeed(newSpeed);
 
-      engineSound.volume = Math.min(1, newSpeed / 220);
+      sounds.engine.volume = volume * Math.min(1, newSpeed / 220);
 
-      if (newSpeed > 150 && engineRoarSound.paused) {
-        engineRoarSound.play();
+      if (newSpeed > 150 && sounds.engineRoar.paused) {
+        sounds.engineRoar.play();
       }
 
       if (newSpeed > 100 && Math.random() < 0.05) {
@@ -114,36 +126,42 @@ export function RaceProvider({ children }: { children: ReactNode }) {
         durability: Math.max(0, prevTire.durability - prevTire.wearRate),
       }));
 
-      setGear((prevGear) => {
-        let newGear = prevGear;
-        if (newSpeed < 40) newGear = 1;
-        else if (newSpeed < 80) newGear = 2;
-        else if (newSpeed < 140) newGear = 3;
-        else newGear = 4;
+      handleGearChange(newSpeed);
+      updatePosition(newSpeed);
+    }
+  };
 
-        if (newGear !== prevGear) {
-          gearShiftSound.play();
-        }
-        return newGear;
-      });
+  /* 🔄 Mudança de Marcha */
+  const handleGearChange = (newSpeed: number) => {
+    let newGear = gear;
+    if (newSpeed < 40) newGear = 1;
+    else if (newSpeed < 80) newGear = 2;
+    else if (newSpeed < 140) newGear = 3;
+    else newGear = 4;
 
-      if (Math.random() > 0.7 && newSpeed > 100) {
-        setPosition((prevPosition) => Math.max(1, prevPosition - 1));
-      }
+    if (newGear !== gear) {
+      sounds.gearShift.play();
+    }
+    setGear(newGear);
+  };
+
+  /* 🏁 Atualização da Posição */
+  const updatePosition = (newSpeed: number) => {
+    if (Math.random() > 0.7 && newSpeed > 100) {
+      setPosition((prev) => Math.max(1, prev - 1));
     }
   };
 
   /* 💥 Colisão */
   const handleCollision = () => {
-    crashSound.play();
-    setSpeed((prevSpeed) => Math.max(0, prevSpeed - 30));
-    setTire((prevTire) => ({
-      ...prevTire,
-      durability: Math.max(0, prevTire.durability - 10),
+    sounds.crash.play();
+    setSpeed((prev) => Math.max(0, prev - 30));
+    setTire((prev) => ({
+      ...prev,
+      durability: Math.max(0, prev.durability - 10),
     }));
     setIsShaking(true);
     setTimeout(() => setIsShaking(false), 500);
-
     alert('💥 Collision occurred! Speed reduced and tire damaged.');
   };
 
@@ -152,17 +170,13 @@ export function RaceProvider({ children }: { children: ReactNode }) {
     if (isRaceActive && track) {
       const brakingEfficiency = tire.grip * (track.weather === 'rainy' ? 0.7 : 1);
       const newSpeed = Math.max(0, speed - 20 * brakingEfficiency);
-      setSpeed(isNaN(newSpeed) ? 0 : newSpeed);
+      setSpeed(newSpeed);
 
       if (newSpeed < speed && speed > 80) {
-        tireScreechSound.play();
+        sounds.tireScreech.play();
       }
 
-      setGear(() => {
-        if (newSpeed < 40) return 1;
-        if (newSpeed < 80) return 2;
-        return 3;
-      });
+      handleGearChange(newSpeed);
     }
   };
 
@@ -175,10 +189,7 @@ export function RaceProvider({ children }: { children: ReactNode }) {
         const newFuel = Math.max(0, prevFuel - baseConsumption * weatherImpact);
 
         if (newFuel === 0) {
-          setIsRaceActive(false);
-          setSpeed(0);
-          engineSound.pause();
-          alert('⛽ Fuel exhausted. Race over!');
+          endRace('⛽ Fuel exhausted. Race over!');
         }
         return newFuel;
       });
@@ -186,11 +197,17 @@ export function RaceProvider({ children }: { children: ReactNode }) {
       setTime((prevTime) => prevTime + 1);
 
       if (position === 1) {
-        setIsRaceActive(false);
-        engineSound.pause();
-        alert('🏆 You won the race!');
+        endRace('🏆 You won the race!');
       }
     }
+  };
+
+  /* 🏁 Encerrar Corrida */
+  const endRace = (message: string) => {
+    setIsRaceActive(false);
+    setSpeed(0);
+    sounds.engine.pause();
+    alert(message);
   };
 
   useEffect(() => {

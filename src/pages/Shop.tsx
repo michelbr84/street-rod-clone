@@ -1,4 +1,6 @@
+// src/pages/Shop.tsx
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'; // ✅ Importação do Link para navegação
 import { useCar } from '../context/CarContext'; // 🔗 Integração com o contexto de carros
 import styles from '../styles/shop.module.css';
 
@@ -19,7 +21,7 @@ const shopItems = [
 ];
 
 export default function Shop() {
-  const { balance, addCar, updateBalance } = useCar(); // ✅ Correção: usando `updateBalance`
+  const { balance, addCar, updateBalance, cars } = useCar(); // ✅ Correção: usando `updateBalance`
   const [activeTab, setActiveTab] = useState<'cars' | 'upgrades'>('cars');
 
   const [purchasedUpgrades, setPurchasedUpgrades] = useState<
@@ -37,6 +39,11 @@ export default function Shop() {
   const handleBuyCar = (car: { id: number; name: string; price: number; speed: number }) => {
     if (balance < car.price) {
       alert('❌ Not enough money to buy this car!');
+      return;
+    }
+
+    if (cars.some((ownedCar) => ownedCar.id === car.id)) {
+      alert('⚠️ You already own this car!');
       return;
     }
 
@@ -67,6 +74,11 @@ export default function Shop() {
         💰 Your Balance: <strong>${balance}</strong>
       </p>
 
+      {/* 🔙 Botão para voltar à garagem */}
+      <Link to="/garage" className={styles.backButton}>
+        ⬅️ Back to Garage
+      </Link>
+
       {/* 🗂️ Tabs para alternar entre Carros e Upgrades */}
       <div className={styles.tabs}>
         <button
@@ -86,19 +98,22 @@ export default function Shop() {
       {/* 🚗 Aba de Compra de Carros */}
       {activeTab === 'cars' && (
         <div className={styles.itemsGrid}>
-          {carInventory.map((car) => (
-            <div key={car.id} className={styles.itemCard}>
-              <h3>{car.name}</h3>
-              <p>Speed: {car.speed} km/h</p>
-              <p>Price: ${car.price}</p>
-              <button
-                onClick={() => handleBuyCar(car)}
-                disabled={balance < car.price} // ✅ Desativa se o saldo for insuficiente
-              >
-                {balance >= car.price ? 'Buy' : 'Not Enough Money'}
-              </button>
-            </div>
-          ))}
+          {carInventory.map((car) => {
+            const owned = cars.some((ownedCar) => ownedCar.id === car.id);
+            return (
+              <div key={car.id} className={`${styles.itemCard} ${owned ? styles.owned : ''}`}>
+                <h3>{car.name}</h3>
+                <p>Speed: {car.speed} km/h</p>
+                <p>Price: ${car.price}</p>
+                <button
+                  onClick={() => handleBuyCar(car)}
+                  disabled={balance < car.price || owned} // ✅ Desativa se o saldo for insuficiente ou já possuir o carro
+                >
+                  {owned ? '✔ Owned' : balance >= car.price ? 'Buy' : 'Not Enough Money'}
+                </button>
+              </div>
+            );
+          })}
         </div>
       )}
 

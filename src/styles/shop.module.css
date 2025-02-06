@@ -198,6 +198,25 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
 }
 
+/* 🔙 Botão "Back to Garage" */
+.backButton {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 25px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.backButton:hover {
+  background-color: #0056b3;
+  transform: translateY(-3px);
+}
+
 /* 📱 Responsividade */
 @media (max-width: 768px) {
   .itemsGrid {
@@ -212,5 +231,11 @@
 
   .shopContainer h1 {
     font-size: 2rem;
+  }
+
+  .backButton {
+    width: 90%;
+    max-width: 300px;
+    padding: 10px;
   }
 }

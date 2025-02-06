@@ -5,7 +5,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
   scroll-behavior: smooth; /* 🚀 Rolagem suave */
 }
 
@@ -37,7 +37,7 @@ body {
 a {
   color: #ffcc00;                  /* Amarelo vibrante */
   text-decoration: none;
-  transition: 0.3s ease;           /* Transição suave */
+  transition: color 0.3s ease, text-shadow 0.3s ease; /* Transições suaves */
 }
 
 a:hover {
@@ -51,7 +51,7 @@ button {
   transition: all 0.3s ease;
   border: none;
   outline: none;
-  padding: 10px 20px;
+  padding: 12px 24px;
   background: #ffcc00;
   color: black;
   font-weight: bold;
@@ -63,6 +63,13 @@ button:hover {
   transform: scale(1.05);          /* Efeito de "zoom" ao passar o mouse */
   opacity: 0.9;
   background: #ffa500;
+}
+
+button:disabled {
+  background: #555;
+  color: #aaa;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 /* 🔳 Bordas suaves para imagens */
@@ -92,7 +99,7 @@ img:hover {
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* 🌟 Animação sutil para carregamento */
+/* 🌟 Animação de fade-in para carregamento */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -155,10 +162,10 @@ img:hover {
   text-shadow: 2px 2px blue, -2px -2px lime;
 }
 
-/* 📱 Tornar tudo mais responsivo */
+/* 📱 Responsividade para dispositivos móveis */
 @media (max-width: 768px) {
   body {
-    font-size: 16px;               /* Tamanho da fonte adaptado para telas menores */
+    font-size: 16px;               /* Ajuste de fonte */
     padding: 5px;
   }
 
@@ -167,7 +174,8 @@ img:hover {
   }
 
   .ui-element {
-    padding: 10px;
+    padding: 12px;
+    margin: 8px 0;
   }
 
   a {
@@ -176,6 +184,21 @@ img:hover {
 
   button {
     width: 90%;
-    margin: 5px auto;
+    margin: 8px auto;
+  }
+}
+
+@media (max-width: 480px) {
+  button {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  .ui-element {
+    padding: 10px;
+  }
+
+  a {
+    font-size: 1rem;
   }
 }

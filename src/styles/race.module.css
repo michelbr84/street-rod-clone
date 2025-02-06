@@ -3,19 +3,64 @@
 /* 🎯 Estilo principal do container da corrida */
 .raceContainer {
   text-align: center;
-  background: black;
+  background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
   color: white;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
   position: relative;
   padding: 20px;
   box-sizing: border-box;
-  overflow: hidden; /* Para garantir que elementos animados não "vazem" */
+  overflow: hidden;
   transition: all 0.3s ease;
+}
+
+/* 🏎️ Título da Corrida */
+.raceContainer h1 {
+  font-size: 2.5rem;
+  color: #ffcc00;
+  margin-bottom: 10px;
+  text-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* 🚀 HUD Container */
+.hudContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0;
+  width: 90%;
+  max-width: 600px;
+}
+
+.hudRow {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+/* 📊 Estilo dos Itens do HUD */
+.hudItem {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  min-width: 120px;
+  transition: transform 0.3s ease, background 0.3s ease;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.hudItem:hover {
+  transform: scale(1.05);
+  background: rgba(255, 204, 0, 0.2);
 }
 
 /* 🎮 Controles do jogador */
@@ -36,6 +81,7 @@
   transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
   font-weight: bold;
+  letter-spacing: 1px;
 }
 
 .controls button:disabled {
@@ -44,17 +90,17 @@
 }
 
 .controls button:nth-child(1) {
-  background: #ffcc00; /* Amarelo para acelerar */
+  background: #ffcc00;
   color: black;
 }
 
 .controls button:nth-child(2) {
-  background: red; /* Vermelho para frear */
+  background: red;
   color: white;
 }
 
 .controls button:hover {
-  transform: scale(1.05); /* Efeito de leve crescimento */
+  transform: scale(1.05);
   opacity: 0.9;
   box-shadow: 0 6px 12px rgba(255, 255, 255, 0.3);
 }
@@ -130,41 +176,6 @@
   }
 }
 
-/* 🔥 Multa aplicada */
-.fineAlert {
-  background: rgba(255, 165, 0, 0.8); /* Laranja */
-  box-shadow: 0px 0px 15px orange;
-  animation: finePulse 1.5s infinite ease-in-out;
-}
-
-@keyframes finePulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-/* ❌ Carro apreendido */
-.seizedAlert {
-  background: rgba(255, 0, 0, 0.8); /* Vermelho escuro */
-  box-shadow: 0px 0px 15px darkred;
-  animation: seizedFlash 0.8s infinite alternate;
-}
-
-@keyframes seizedFlash {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0.4;
-  }
-}
-
 /* 💥 Tremor da tela */
 .shake {
   animation: shake 0.4s ease-in-out;
@@ -196,22 +207,6 @@
   to { opacity: 0; }
 }
 
-/* 🌪️ Efeito Glitch */
-.glitch {
-  animation: glitch 0.3s linear infinite;
-  color: red;
-  text-shadow: 2px 2px blue, -2px -2px lime;
-}
-
-@keyframes glitch {
-  0% { transform: translate(0); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(2px, -2px); }
-  60% { transform: translate(-1px, 1px); }
-  80% { transform: translate(1px, -1px); }
-  100% { transform: translate(0); }
-}
-
 /* 🏁 Status dos Oponentes */
 .opponentsStatus {
   background: rgba(255, 255, 255, 0.1);
@@ -226,11 +221,16 @@
 }
 
 .opponentsStatus:hover {
-  transform: scale(1.03); /* Pequeno destaque ao passar o mouse */
+  transform: scale(1.03);
 }
 
 /* 📱 Responsividade */
 @media (max-width: 768px) {
+  .hudRow {
+    flex-direction: column;
+    align-items: center;
+  }
+
   .controls {
     flex-direction: column;
     width: 100%;
@@ -244,11 +244,6 @@
   .policeAlert {
     font-size: 1.5rem;
     padding: 15px;
-  }
-
-  .debugInfo {
-    font-size: 12px;
-    padding: 8px;
   }
 
   .result {

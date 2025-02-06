@@ -1,8 +1,8 @@
-// src/context/CarContext.tsx
+/* src/context/CarContext.tsx */
 
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
-// 🚗 Tipo de Carro
+/* 🚗 Tipo de Carro */
 export interface Car {
   id: number; // 🔑 ID único para cada carro
   name: string;
@@ -13,7 +13,7 @@ export interface Car {
   weight?: number;
 }
 
-// 🔧 Estrutura do Contexto
+/* 🔧 Estrutura do Contexto */
 interface CarContextType {
   cars: Car[];
   balance: number;
@@ -24,10 +24,10 @@ interface CarContextType {
   resetGarage: () => void; // 🔄 Resetar a garagem
 }
 
-// 📌 Criando o Contexto
+/* 📌 Criando o Contexto */
 const CarContext = createContext<CarContextType | undefined>(undefined);
 
-// 🚗 Provedor do Contexto (CarProvider)
+/* 🚗 Provedor do Contexto (CarProvider) */
 export function CarProvider({ children }: { children: ReactNode }) {
   const [cars, setCars] = useState<Car[]>(() => {
     const savedCars = localStorage.getItem('playerCars');
@@ -49,7 +49,7 @@ export function CarProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('playerBalance', JSON.stringify(balance));
   }, [balance]);
 
-  // ✅ Atualiza o saldo do jogador (impede saldo negativo)
+  /* ✅ Atualiza o saldo do jogador (impede saldo negativo) */
   const updateBalance = (amount: number) => {
     setBalance((prevBalance) => {
       const newBalance = prevBalance + amount;
@@ -61,21 +61,31 @@ export function CarProvider({ children }: { children: ReactNode }) {
     });
   };
 
-  // ➕ Comprar um carro (gera ID único para evitar duplicações)
+  /* ➕ Comprar um carro (garante dedução única do saldo) */
   const addCar = (car: Car) => {
+    // Verifica se o carro já foi comprado
+    const alreadyOwned = cars.some((ownedCar) => ownedCar.name === car.name);
+    if (alreadyOwned) {
+      alert(`⚠️ You already own the ${car.name}!`);
+      return;
+    }
+
+    // Verifica saldo suficiente
+    if (balance < car.price) {
+      alert('❌ Not enough money to buy this car!');
+      return;
+    }
+
     const uniqueId = Date.now() + Math.floor(Math.random() * 1000); // 🔑 ID único
     const newCar = { ...car, id: uniqueId, condition: 100 }; // 🚗 Novo carro com condição 100%
 
-    if (balance >= car.price) {
-      setCars((prevCars) => [...prevCars, newCar]);
-      updateBalance(-car.price); // ✅ Deduz o valor do carro do saldo
-      alert(`🚗 You purchased a ${car.name}!`);
-    } else {
-      alert('❌ Not enough money to buy this car!');
-    }
+    // Atualiza garagem e saldo
+    setCars((prevCars) => [...prevCars, newCar]);
+    updateBalance(-car.price); // ✅ Deduz o valor do carro do saldo
+    alert(`🚗 You purchased a ${car.name}!`);
   };
 
-  // ❌ Vender um carro de forma segura
+  /* ❌ Vender um carro de forma segura */
   const sellCar = (carId: number) => {
     const carToSell = cars.find((c) => c.id === carId);
 
@@ -94,7 +104,7 @@ export function CarProvider({ children }: { children: ReactNode }) {
     alert(`✅ You sold your ${carToSell.name} for $${carToSell.price / 2}!`);
   };
 
-  // 🔧 Reparo de um carro (restaura a condição para 100%)
+  /* 🔧 Reparo de um carro (restaura a condição para 100%) */
   const repairCar = (carId: number, cost: number) => {
     if (balance < cost) {
       alert('❌ Not enough money for repairs!');
@@ -109,7 +119,7 @@ export function CarProvider({ children }: { children: ReactNode }) {
     alert('✅ Car repaired successfully!');
   };
 
-  // 🔄 Resetar a garagem (para debug ou novo jogo)
+  /* 🔄 Resetar a garagem (para debug ou novo jogo) */
   const resetGarage = () => {
     setCars([]);
     setBalance(10000); // Reinicia o saldo inicial
@@ -126,7 +136,7 @@ export function CarProvider({ children }: { children: ReactNode }) {
   );
 }
 
-// 🎯 Hook personalizado para acessar o contexto
+/* 🎯 Hook personalizado para acessar o contexto */
 export function useCar() {
   const context = useContext(CarContext);
   if (!context) {

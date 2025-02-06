@@ -17,6 +17,8 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); /* 🌟 Efeito de sombra para destacar */
   border: 1px solid rgba(255, 255, 255, 0.2); /* 🖋️ Borda sutil para definição */
   transition: all 0.3s ease-in-out; /* ✨ Suavidade em transições */
+  flex-wrap: wrap; /* 🔄 Permite que itens se reorganizem em telas menores */
+  gap: 10px;
 }
 
 /* 🎯 Estilo individual para cada item do HUD */
@@ -157,6 +159,8 @@
   .hudItem {
     font-size: 1rem;
     gap: 4px;
+    width: 100%; /* 📏 Itens ocupam toda a largura disponível */
+    justify-content: space-between; /* ↔️ Distribui o espaço de forma equilibrada */
   }
 
   .icon {

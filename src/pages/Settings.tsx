@@ -1,25 +1,32 @@
+// src/pages/Settings.tsx
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useAudio } from '../context/AudioContext';
 import styles from '../styles/settings.module.css';
 
 export default function Settings() {
-  const [volume, setVolume] = useState(50);
+  const { volume, setVolume, playEffect } = useAudio();
   const [graphics, setGraphics] = useState('medium');
 
-  // Carregar configurações salvas no localStorage
+  // 🎮 Carregar configurações salvas no localStorage
   useEffect(() => {
-    const savedVolume = localStorage.getItem('volume');
     const savedGraphics = localStorage.getItem('graphics');
-
-    if (savedVolume) setVolume(Number(savedVolume));
     if (savedGraphics) setGraphics(savedGraphics);
   }, []);
 
-  // Salvar configurações no localStorage
+  // 💾 Salvar configurações no localStorage
   const handleSaveSettings = () => {
-    localStorage.setItem('volume', String(volume));
     localStorage.setItem('graphics', graphics);
+    localStorage.setItem('audioVolume', volume.toString()); // 🔊 Salva o volume no localStorage
     alert('Settings saved! ✅');
+  };
+
+  // 🔊 Ajustar volume e tocar som de teste
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newVolume = parseFloat(e.target.value) / 100; // Converte de 0-100 para 0-1
+    setVolume(newVolume); // Atualiza o volume globalmente
+    playEffect('button_click'); // 🔔 Toca um som de teste
   };
 
   return (
@@ -33,10 +40,10 @@ export default function Settings() {
             type="range"
             min="0"
             max="100"
-            value={volume}
-            onChange={(e) => setVolume(Number(e.target.value))}
+            value={Math.round(volume * 100)} // Converte de 0-1 para 0-100
+            onChange={handleVolumeChange}
           />
-          {volume}%
+          {Math.round(volume * 100)}%
         </label>
 
         <label>

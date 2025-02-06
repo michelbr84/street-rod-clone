@@ -1,10 +1,10 @@
 module.exports = {
-  preset: "ts-jest",                          // ✅ Suporte para TypeScript com Jest
-  testEnvironment: "jsdom",                  // ✅ Simula o DOM (essencial para testar componentes React)
+  preset: "ts-jest",                           // ✅ Suporte para TypeScript com Jest
+  testEnvironment: "jsdom",                   // ✅ Simula o DOM (essencial para testar componentes React)
 
   transform: {
-    "^.+\\.(ts|tsx)$": "ts-jest",            // ✅ Transforma arquivos TypeScript (.ts e .tsx)
-    "^.+\\.(js|jsx|mjs)$": "babel-jest"      // ✅ Transforma arquivos JS/JSX e ESM (mjs) com Babel
+    "^.+\\.(ts|tsx)$": "ts-jest",             // ✅ Transforma arquivos TypeScript (.ts e .tsx)
+    "^.+\\.(js|jsx|mjs)$": "babel-jest"       // ✅ Transforma arquivos JS/JSX e ESM (mjs) com Babel
   },
 
   moduleNameMapper: {
@@ -13,12 +13,12 @@ module.exports = {
   },
 
   transformIgnorePatterns: [
-    "/node_modules/(?!@babel|lodash-es)"     // ✅ Ignora node_modules, mas permite transformar libs ESM específicas
+    "/node_modules/(?!@babel|lodash-es)"      // ✅ Ignora node_modules, mas permite transformar libs ESM específicas
   ],
 
   setupFilesAfterEnv: [
     "@testing-library/jest-dom/extend-expect", // ✅ Configurações do Testing Library (matchers personalizados)
-    "<rootDir>/src/tests/setupTests.ts"        // ✅ Configurações globais de testes (se existir)
+    "<rootDir>/src/tests/setupTests.ts"        // ✅ Configurações globais de testes (ex: mocks, polyfills)
   ],
 
   testMatch: [
@@ -30,13 +30,21 @@ module.exports = {
   coverageReporters: ["text", "lcov", "html"], // ✅ Gera relatórios de cobertura em texto, LCOV e HTML
   coverageDirectory: "coverage",               // ✅ Diretório de saída para relatórios de cobertura
 
+  collectCoverageFrom: [                      // ✅ Define os arquivos que devem ser considerados na cobertura
+    "src/**/*.{ts,tsx,js,jsx}",
+    "!src/**/*.d.ts",                         // 🚫 Ignora arquivos de declaração TypeScript
+    "!src/**/index.{ts,tsx,js,jsx}",          // 🚫 Ignora arquivos de entrada que apenas exportam módulos
+    "!src/**/types.{ts,tsx}",                 // 🚫 Ignora arquivos de tipos
+    "!src/tests/**"                           // 🚫 Ignora pastas de testes
+  ],
+
   clearMocks: true,                            // ✅ Limpa mocks entre cada teste para evitar efeitos colaterais
   resetMocks: true,                            // ✅ Reseta o estado dos mocks automaticamente
 
   globals: {
     "ts-jest": {
-      isolatedModules: true,                   // ✅ Transpila TypeScript de forma independente (ótimo para projetos Vite)
-      diagnostics: false                       // ✅ Desabilita erros do TypeScript durante os testes (mantém o foco nos testes)
+      isolatedModules: true,                  // ✅ Transpila TypeScript de forma independente (ótimo para projetos Vite)
+      diagnostics: false                      // ✅ Desabilita erros do TypeScript durante os testes (mantém o foco nos testes)
     }
   },
 

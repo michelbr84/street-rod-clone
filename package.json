@@ -1,15 +1,18 @@
 {
   "name": "street-rod-clone",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "preview": "vite preview",
     "lint": "eslint . --fix",
     "format": "prettier --write .",
-    "preview": "vite preview",
-    "prepare": "husky"
+    "prepare": "husky install",
+    "test": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -43,6 +46,7 @@
     "husky": "^9.1.7",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^15.4.3",
     "prettier": "^3.4.2",
     "ts-jest": "^29.2.5",
@@ -54,5 +58,36 @@
       "eslint --fix",
       "prettier --write"
     ]
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "jest-environment-jsdom",
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest",
+      "^.+\\.(js|jsx|mjs)$": "babel-jest"
+    },
+    "moduleNameMapper": {
+      "\\.(css|less|scss|sass)$": "identity-obj-proxy",
+      "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!@babel|lodash-es)"
+    ],
+    "setupFilesAfterEnv": [
+  "<rootDir>/src/tests/setupTests.ts"
+],
+    "testMatch": [
+      "**/__tests__/**/*.(ts|tsx|js|jsx)",
+      "**/?(*.)+(spec|test).(ts|tsx|js|jsx)"
+    ],
+    "collectCoverage": true,
+    "coverageReporters": [
+      "text",
+      "lcov",
+      "html"
+    ],
+    "coverageDirectory": "coverage",
+    "clearMocks": true,
+    "resetMocks": true
   }
 }
